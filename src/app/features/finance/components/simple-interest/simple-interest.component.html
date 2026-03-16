@@ -1,0 +1,46 @@
+<div class="max-w-3xl mx-auto space-y-6 animate-fade-in duration-300">
+  <div class="bg-white rounded-2xl shadow-sm border border-slate-200 overflow-hidden relative">
+    <div class="h-2 w-full bg-blue-500 absolute top-0 left-0"></div>
+    
+    <div class="px-6 py-5 border-b border-slate-100 flex items-center justify-between">
+      <div>
+        <h2 class="text-xl font-bold text-slate-800">Juros Simples</h2>
+        <p class="text-slate-500 text-sm mt-1">Calcule o rendimento de um capital com juros simples ao longo do tempo.</p>
+      </div>
+      <div class="h-10 w-10 bg-blue-50 text-blue-600 rounded-full flex items-center justify-center">
+        <span class="material-icons">payments</span>
+      </div>
+    </div>
+    
+    <div class="p-6 md:p-8">
+      <form [formGroup]="form" (ngSubmit)="calculate()" class="space-y-6">
+        
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <app-dynamic-input formControlName="principal" label="Capital Inicial (R$)" type="number" prefix="R$" [control]="form.get('principal')"></app-dynamic-input>
+          <app-dynamic-input formControlName="rate" label="Taxa de Juros (ao período)" type="number" suffix="%" [control]="form.get('rate')"></app-dynamic-input>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <app-dynamic-input formControlName="time" label="Tempo/Períodos" type="number" suffix="meses" [control]="form.get('time')"></app-dynamic-input>
+        </div>
+
+        <div class="pt-4 flex justify-end">
+          <app-ui-button type="submit" variant="primary" icon="calculate">
+            Calcular Rendimento
+          </app-ui-button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <div *ngIf="result" class="grid grid-cols-1 sm:grid-cols-2 gap-6 animate-fade-in delay-75 duration-300">
+    <div class="bg-white rounded-2xl p-6 border border-slate-200 flex flex-col items-center justify-center shadow-sm">
+      <p class="text-slate-500 font-medium mb-1">Total de Juros Rendidos</p>
+      <p class="text-2xl font-bold text-slate-700">{{ result.totalInterest | currency:'BRL':'symbol':'1.2-2':'pt-BR' }}</p>
+    </div>
+    <div class="bg-gradient-to-br from-blue-50 to-indigo-50 rounded-2xl p-6 border border-blue-100 flex flex-col items-center justify-center shadow-sm">
+      <p class="text-blue-800 font-bold uppercase tracking-wider text-xs mb-1">Montante Final</p>
+      <p class="text-3xl font-extrabold text-blue-900">{{ result.finalAmount | currency:'BRL':'symbol':'1.2-2':'pt-BR' }}</p>
+    </div>
+  </div>
+</div>

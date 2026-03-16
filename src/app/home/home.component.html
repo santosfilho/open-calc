@@ -1,0 +1,26 @@
+<div class="space-y-10 animate-fade-in">
+  <!-- Hero Section -->
+  <div class="bg-gradient-to-br from-emerald-600 to-teal-800 rounded-2xl p-8 md:p-12 text-white shadow-lg relative overflow-hidden">
+    <div class="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjAiIGhlaWdodD0iMjAiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PGNpcmNsZSBjeD0iMiIgY3k9IjIiIHI9IjEiIGZpbGw9InJnYmEoMjU1LDI1NSwyNTUsMC4yKSIvPjwvc3ZnPg==')] opacity-30"></div>
+    <div class="relative z-10 max-w-2xl">
+      <h1 class="text-3xl md:text-4xl font-bold mb-4">Escolha sua calculadora</h1>
+      <p class="text-emerald-50 text-lg">O OpenCalc reúne ferramentas de conversão, cálculos financeiros e matemáticos em um único hub intuitivo e rápido.</p>
+    </div>
+  </div>
+
+  <!-- Calculator Categories -->
+  <div *ngFor="let category of calculatorCategories" class="space-y-6">
+    <div class="flex items-center">
+      <h2 class="text-2xl font-bold text-slate-800 mr-4">{{ category.category }}</h2>
+      <div class="h-px bg-slate-200 flex-1"></div>
+    </div>
+    
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+      <app-calculator-card
+        *ngFor="let calc of category.calculators"
+        [categoryPath]="category.path"
+        [calc]="calc">
+      </app-calculator-card>
+    </div>
+  </div>
+</div>

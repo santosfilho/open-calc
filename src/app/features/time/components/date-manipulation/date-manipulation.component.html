@@ -1,0 +1,83 @@
+<div class="max-w-3xl mx-auto space-y-6 animate-fade-in animate-duration-300">
+  <div class="bg-white rounded-2xl shadow-sm border border-slate-200 overflow-hidden relative">
+    <div class="h-2 w-full bg-gradient-to-r from-emerald-400 to-teal-500 absolute top-0 left-0"></div>
+    
+    <div class="px-6 py-5 border-b border-slate-100 flex items-center justify-between">
+      <div>
+        <h2 class="text-xl font-bold text-slate-800">Manipulação de Datas</h2>
+        <p class="text-slate-500 text-sm mt-1">Some ou subtraia períodos exatos de uma data base.</p>
+      </div>
+      <div class="h-10 w-10 bg-emerald-50 text-emerald-600 rounded-full flex items-center justify-center">
+        <span class="material-icons">event</span>
+      </div>
+    </div>
+    
+    <div class="p-6 md:p-8">
+      <form [formGroup]="form" (ngSubmit)="calculate()" class="space-y-6">
+        
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <app-dynamic-input
+            formControlName="startDate"
+            label="Data Base"
+            type="date"
+            [control]="form.get('startDate')">
+          </app-dynamic-input>
+          
+          <div class="space-y-1">
+            <label class="block text-sm font-medium text-slate-700">Operação</label>
+            <div class="relative">
+              <select formControlName="operation" class="block w-full rounded-md border-0 py-2.5 px-3 pr-10 text-slate-900 shadow-sm ring-1 ring-inset ring-slate-300 focus:ring-2 focus:ring-inset focus:ring-emerald-500 sm:text-sm sm:leading-6 bg-white transition-all duration-200 outline-none hover:ring-slate-400 appearance-none">
+                <option *ngFor="let op of operations" [value]="op.value">{{ op.label }}</option>
+              </select>
+              <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-slate-500">
+                <span class="material-icons text-sm">expand_more</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <app-dynamic-input
+            formControlName="amount"
+            label="Quantidade"
+            type="number"
+            [control]="form.get('amount')"
+            errorMessage="A quantidade deve ser maior ou igual a 1">
+          </app-dynamic-input>
+
+          <div class="space-y-1">
+            <label class="block text-sm font-medium text-slate-700">Unidade de Tempo</label>
+            <div class="relative">
+              <select formControlName="unit" class="block w-full rounded-md border-0 py-2.5 px-3 pr-10 text-slate-900 shadow-sm ring-1 ring-inset ring-slate-300 focus:ring-2 focus:ring-inset focus:ring-emerald-500 sm:text-sm sm:leading-6 bg-white transition-all duration-200 outline-none hover:ring-slate-400 appearance-none">
+                <option *ngFor="let u of units" [value]="u.value">{{ u.label }}</option>
+              </select>
+              <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-slate-500">
+                <span class="material-icons text-sm">expand_more</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="pt-4 flex justify-end">
+          <app-ui-button type="submit" variant="primary" icon="calculate">
+            Calcular Data
+          </app-ui-button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Result Box -->
+  <div *ngIf="resultDate" class="bg-gradient-to-r from-emerald-50 to-teal-50 rounded-2xl p-6 md:p-8 border border-emerald-100 flex items-center justify-between shadow-sm animate-fade-in transition-all delay-75 duration-300">
+    <div>
+      <h3 class="text-sm font-bold text-emerald-800 uppercase tracking-wider mb-2">Resultado Final</h3>
+      <p class="text-3xl md:text-4xl font-extrabold text-emerald-900">
+        {{ resultDate | date:'dd/MM/yyyy' }}
+      </p>
+      <p class="text-sm md:text-base font-medium text-emerald-700 mt-2 uppercase tracking-wide">{{ resultDate | date:'EEEE' }}</p>
+    </div>
+    <div class="hidden md:flex w-24 h-24 bg-white/60 rounded-full items-center justify-center text-emerald-600 shadow-sm border border-emerald-100">
+      <span class="material-icons text-4xl">event_available</span>
+    </div>
+  </div>
+</div>
