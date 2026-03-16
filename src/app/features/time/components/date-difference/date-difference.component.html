@@ -1,0 +1,76 @@
+<div class="max-w-3xl mx-auto space-y-6">
+  <!-- Form Card -->
+  <div class="bg-white rounded-2xl shadow-sm border border-slate-200 overflow-hidden relative">
+    <div class="h-2 w-full bg-gradient-to-r from-violet-500 to-purple-600 absolute top-0 left-0"></div>
+
+    <div class="px-6 py-5 border-b border-slate-100 flex items-center justify-between">
+      <div>
+        <h2 class="text-xl font-bold text-slate-800">Diferença entre Datas</h2>
+        <p class="text-slate-500 text-sm mt-1">Calcule o intervalo exato entre duas datas em anos, meses, dias e total de dias.</p>
+      </div>
+      <div class="h-10 w-10 bg-violet-50 text-violet-600 rounded-full flex items-center justify-center">
+        <span class="material-icons">date_range</span>
+      </div>
+    </div>
+
+    <div class="p-6 md:p-8">
+      <form [formGroup]="form" (ngSubmit)="calculate()" class="space-y-6">
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <app-dynamic-input
+            formControlName="startDate"
+            label="Data Inicial"
+            type="date"
+            [control]="form.get('startDate')">
+          </app-dynamic-input>
+
+          <app-dynamic-input
+            formControlName="endDate"
+            label="Data Final"
+            type="date"
+            [control]="form.get('endDate')">
+          </app-dynamic-input>
+        </div>
+
+        <div class="pt-4 flex justify-end">
+          <app-ui-button type="submit" variant="primary" icon="calculate">
+            Calcular Diferença
+          </app-ui-button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Results -->
+  <div *ngIf="result" class="grid grid-cols-1 md:grid-cols-2 gap-6">
+
+    <!-- Detailed format -->
+    <div class="bg-gradient-to-br from-violet-50 to-purple-50 rounded-2xl p-6 border border-violet-100 shadow-sm">
+      <p class="text-violet-800 font-bold uppercase tracking-wider text-xs mb-4">Formato Detalhado</p>
+
+      <div class="flex items-end gap-4 flex-wrap">
+        <div class="text-center">
+          <p class="text-4xl font-extrabold text-violet-900">{{ result.years }}</p>
+          <p class="text-sm font-medium text-violet-600 mt-1">{{ result.years === 1 ? 'ano' : 'anos' }}</p>
+        </div>
+        <p class="text-2xl font-light text-violet-300 pb-1">·</p>
+        <div class="text-center">
+          <p class="text-4xl font-extrabold text-violet-900">{{ result.months }}</p>
+          <p class="text-sm font-medium text-violet-600 mt-1">{{ result.months === 1 ? 'mês' : 'meses' }}</p>
+        </div>
+        <p class="text-2xl font-light text-violet-300 pb-1">·</p>
+        <div class="text-center">
+          <p class="text-4xl font-extrabold text-violet-900">{{ result.days }}</p>
+          <p class="text-sm font-medium text-violet-600 mt-1">{{ result.days === 1 ? 'dia' : 'dias' }}</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Simple format -->
+    <div class="bg-gradient-to-br from-slate-800 to-slate-900 rounded-2xl p-6 border border-slate-700 shadow-sm flex flex-col justify-center">
+      <p class="text-slate-400 font-bold uppercase tracking-wider text-xs mb-3">Total de Dias</p>
+      <p class="text-5xl font-extrabold text-white">{{ result.totalDays }}</p>
+      <p class="text-slate-400 text-sm mt-2">{{ result.totalDays === 1 ? 'dia no total' : 'dias no total' }}</p>
+    </div>
+  </div>
+</div>
