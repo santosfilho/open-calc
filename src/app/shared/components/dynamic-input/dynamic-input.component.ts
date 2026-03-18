@@ -23,8 +23,9 @@ import { ControlValueAccessor, NG_VALUE_ACCESSOR, ReactiveFormsModule, AbstractC
           class="block w-full rounded-md border-0 py-2.5 text-slate-900 dark:text-white shadow-sm ring-1 ring-inset focus:ring-2 focus:ring-inset sm:text-sm sm:leading-6 transition-all duration-200 outline-none"
           [ngClass]="{
              'pl-9': prefix,
+             'pl-3': !prefix,
              'pr-9': suffix,
-             'px-3': !prefix && !suffix,
+             'pr-3': !suffix,
              'ring-slate-300 dark:ring-slate-600 focus:ring-emerald-500 dark:focus:ring-emerald-400': !hasError,
              'ring-red-300 dark:ring-red-500 focus:ring-red-500 text-red-900 dark:text-red-400': hasError,
              'bg-slate-50 dark:bg-slate-900/50 cursor-not-allowed text-slate-500 dark:text-slate-500': disabled,
