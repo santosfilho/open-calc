@@ -26,16 +26,16 @@ export class UiButtonComponent {
   @Input() icon?: string;
   @Output() onClick = new EventEmitter<Event>();
 
-  get variantClasses(): string {
+    get variantClasses(): string {
     if (this.disabled) {
-      return 'bg-slate-300 text-slate-500 cursor-not-allowed';
+      return 'bg-slate-300 dark:bg-slate-700 text-slate-500 dark:text-slate-400 cursor-not-allowed';
     }
     switch (this.variant) {
-      case 'primary': return 'text-white bg-emerald-600 hover:bg-emerald-700 focus:ring-emerald-500 hover:shadow-md';
-      case 'secondary': return 'text-emerald-700 bg-emerald-50 hover:bg-emerald-100 focus:ring-emerald-500 border-emerald-200 border';
-      case 'danger': return 'text-white bg-red-600 hover:bg-red-700 focus:ring-red-500 hover:shadow-md';
-      case 'ghost': return 'text-slate-600 bg-transparent hover:bg-slate-100 shadow-none border-transparent';
-      default: return 'text-white bg-emerald-600 hover:bg-emerald-700 focus:ring-emerald-500 hover:shadow-md';
+      case 'primary': return 'text-white bg-emerald-600 hover:bg-emerald-700 dark:bg-emerald-500 dark:hover:bg-emerald-600 focus:ring-emerald-500 hover:shadow-md';
+      case 'secondary': return 'text-emerald-700 dark:text-emerald-400 bg-emerald-50 dark:bg-emerald-900/30 hover:bg-emerald-100 dark:hover:bg-emerald-900/50 focus:ring-emerald-500 border-emerald-200 dark:border-emerald-700 border';
+      case 'danger': return 'text-white bg-red-600 hover:bg-red-700 dark:bg-red-500 dark:hover:bg-red-600 focus:ring-red-500 hover:shadow-md';
+      case 'ghost': return 'text-slate-600 dark:text-slate-300 bg-transparent hover:bg-slate-100 dark:hover:bg-slate-800 shadow-none border-transparent';
+      default: return 'text-white bg-emerald-600 hover:bg-emerald-700 dark:bg-emerald-500 dark:hover:bg-emerald-600 focus:ring-emerald-500 hover:shadow-md';
     }
   }
 }

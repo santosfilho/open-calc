@@ -8,9 +8,9 @@ import { ControlValueAccessor, NG_VALUE_ACCESSOR, ReactiveFormsModule, AbstractC
   imports: [CommonModule, ReactiveFormsModule],
   template: `
     <div class="space-y-1 w-full">
-      <label *ngIf="label" class="block text-sm font-medium text-slate-700">{{ label }}</label>
+      <label *ngIf="label" class="block text-sm font-medium text-slate-700 dark:text-slate-300">{{ label }}</label>
       <div class="relative">
-        <span *ngIf="prefix" class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none text-slate-500">
+        <span *ngIf="prefix" class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none text-slate-500 dark:text-slate-400">
           {{ prefix }}
         </span>
         <input
@@ -20,17 +20,17 @@ import { ControlValueAccessor, NG_VALUE_ACCESSOR, ReactiveFormsModule, AbstractC
           (input)="onInputChange($event)"
           (blur)="onTouched()"
           [disabled]="disabled"
-          class="block w-full rounded-md border-0 py-2.5 text-slate-900 shadow-sm ring-1 ring-inset focus:ring-2 focus:ring-inset sm:text-sm sm:leading-6 transition-all duration-200 outline-none"
+          class="block w-full rounded-md border-0 py-2.5 text-slate-900 dark:text-white shadow-sm ring-1 ring-inset focus:ring-2 focus:ring-inset sm:text-sm sm:leading-6 transition-all duration-200 outline-none"
           [ngClass]="{
              'pl-9': prefix,
              'pr-9': suffix,
              'px-3': !prefix && !suffix,
-             'ring-slate-300 focus:ring-emerald-500': !hasError,
-             'ring-red-300 focus:ring-red-500 text-red-900': hasError,
-             'bg-slate-50 cursor-not-allowed text-slate-500': disabled,
-             'bg-white hover:ring-slate-400': !disabled && !hasError
+             'ring-slate-300 dark:ring-slate-600 focus:ring-emerald-500 dark:focus:ring-emerald-400': !hasError,
+             'ring-red-300 dark:ring-red-500 focus:ring-red-500 text-red-900 dark:text-red-400': hasError,
+             'bg-slate-50 dark:bg-slate-900/50 cursor-not-allowed text-slate-500 dark:text-slate-500': disabled,
+             'bg-white dark:bg-slate-800 hover:ring-slate-400 dark:hover:ring-slate-500': !disabled && !hasError
           }">
-        <span *ngIf="suffix" class="absolute inset-y-0 right-0 pr-3 flex items-center pointer-events-none text-slate-500">
+        <span *ngIf="suffix" class="absolute inset-y-0 right-0 pr-3 flex items-center pointer-events-none text-slate-500 dark:text-slate-400">
           {{ suffix }}
         </span>
       </div>
