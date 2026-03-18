@@ -1,7 +1,8 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterLink, RouterLinkActive } from '@angular/router';
 import { CALCULATORS_CONFIG } from '../../../shared/calculators.config';
+import { LayoutService } from '../../services/layout.service';
 
 @Component({
   selector: 'app-sidebar',
@@ -12,4 +13,5 @@ import { CALCULATORS_CONFIG } from '../../../shared/calculators.config';
 })
 export class SidebarComponent {
   config = CALCULATORS_CONFIG;
+  layoutService = inject(LayoutService);
 }
