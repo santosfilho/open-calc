@@ -17,11 +17,11 @@
         
         <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
           <app-dynamic-input formControlName="principal" label="Capital Inicial (R$)" type="number" prefix="R$" [control]="form.get('principal')"></app-dynamic-input>
-          <app-dynamic-input formControlName="rate" label="Taxa de Juros (ao período)" type="number" suffix="%" [control]="form.get('rate')"></app-dynamic-input>
+          <app-dynamic-input formControlName="rate" label="Taxa de Juros" type="number" [suffixOptions]="ratePeriods" [suffixControl]="form.get('ratePeriod')" [control]="form.get('rate')"></app-dynamic-input>
         </div>
 
         <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-          <app-dynamic-input formControlName="time" label="Tempo/Períodos" type="number" suffix="meses" [control]="form.get('time')"></app-dynamic-input>
+          <app-dynamic-input formControlName="time" label="Tempo" type="number" [suffixOptions]="timePeriods" [suffixControl]="form.get('timePeriod')" [control]="form.get('time')"></app-dynamic-input>
         </div>
 
         <div class="pt-4 flex justify-end">
