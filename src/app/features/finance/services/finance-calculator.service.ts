@@ -15,24 +15,38 @@ export interface CompoundInterestResult {
   providedIn: 'root'
 })
 export class FinanceCalculatorService {
-  calculateSimpleInterest(principal: number, rate: number, time: number): SimpleInterestResult {
-    const interest = principal * (rate / 100) * time;
+  calculateSimpleInterest(principal: number, rate: number, time: number, ratePeriod: 'am' | 'aa' = 'am', timePeriod: 'meses' | 'anos' = 'meses'): SimpleInterestResult {
+    let t = time;
+    if (ratePeriod === 'am' && timePeriod === 'anos') {
+      t = time * 12;
+    } else if (ratePeriod === 'aa' && timePeriod === 'meses') {
+      t = time / 12;
+    }
+    
+    const interest = principal * (rate / 100) * t;
     return {
       totalInterest: interest,
       finalAmount: principal + interest
     };
   }
 
-  calculateCompoundInterest(principal: number, monthlyContribution: number, rate: number, timeInMonths: number): CompoundInterestResult {
-    const r = rate / 100;
+  calculateCompoundInterest(principal: number, monthlyContribution: number, rate: number, time: number, ratePeriod: 'am' | 'aa' = 'am', timePeriod: 'meses' | 'anos' = 'meses'): CompoundInterestResult {
+    const timeInMonths = timePeriod === 'anos' ? time * 12 : time;
     
-    // Future value of initial principal
+    let r = rate / 100;
+    if (ratePeriod === 'aa') {
+      r = Math.pow(1 + r, 1 / 12) - 1;
+    }
+    
     const fvPrincipal = principal * Math.pow(1 + r, timeInMonths);
     
-    // Future value of a series of monthly contributions
     let fvContributions = 0;
     if (monthlyContribution > 0) {
-      fvContributions = monthlyContribution * ((Math.pow(1 + r, timeInMonths) - 1) / r);
+      if (r === 0) {
+        fvContributions = monthlyContribution * timeInMonths;
+      } else {
+        fvContributions = monthlyContribution * ((Math.pow(1 + r, timeInMonths) - 1) / r);
+      }
     }
     
     const finalAmount = fvPrincipal + fvContributions;

@@ -1,13 +1,13 @@
 <div class="max-w-4xl mx-auto space-y-6 animate-fade-in duration-300">
-  <div class="bg-white rounded-2xl shadow-sm border border-slate-200 overflow-hidden relative">
+  <div class="bg-white dark:bg-slate-800 rounded-2xl shadow-sm border border-slate-200 dark:border-slate-700 overflow-hidden relative transition-colors duration-200">
     <div class="h-2 w-full bg-indigo-500 absolute top-0 left-0"></div>
     
-    <div class="px-6 py-5 border-b border-slate-100 flex items-center justify-between">
+    <div class="px-6 py-5 border-b border-slate-100 dark:border-slate-700 flex items-center justify-between transition-colors">
       <div>
-        <h2 class="text-xl font-bold text-slate-800">Juros Compostos</h2>
-        <p class="text-slate-500 text-sm mt-1">Simule o crescimento exponencial dos seus investimentos no decorrer do tempo.</p>
+        <h2 class="text-xl font-bold text-slate-800 dark:text-slate-100 transition-colors">Juros Compostos</h2>
+        <p class="text-slate-500 dark:text-slate-400 text-sm mt-1 transition-colors">Simule o crescimento exponencial dos seus investimentos no decorrer do tempo.</p>
       </div>
-      <div class="h-10 w-10 bg-indigo-50 text-indigo-600 rounded-full flex items-center justify-center">
+      <div class="h-10 w-10 bg-indigo-50 dark:bg-indigo-900/30 text-indigo-600 dark:text-indigo-400 rounded-full flex items-center justify-center transition-colors">
         <span class="material-icons">trending_up</span>
       </div>
     </div>
@@ -21,8 +21,8 @@
         </div>
 
         <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-          <app-dynamic-input formControlName="rate" label="Taxa de Juros (Mensal %)" type="number" suffix="%" [control]="form.get('rate')"></app-dynamic-input>
-          <app-dynamic-input formControlName="timeInMonths" label="Período" type="number" suffix="meses" [control]="form.get('timeInMonths')"></app-dynamic-input>
+          <app-dynamic-input formControlName="rate" label="Taxa de Juros" type="number" [suffixOptions]="ratePeriods" [suffixControl]="form.get('ratePeriod')" [control]="form.get('rate')"></app-dynamic-input>
+          <app-dynamic-input formControlName="timeInMonths" label="Período" type="number" [suffixOptions]="timePeriods" [suffixControl]="form.get('timePeriod')" [control]="form.get('timeInMonths')"></app-dynamic-input>
         </div>
 
         <div class="pt-4 flex justify-end">
@@ -36,20 +36,20 @@
 
   <!-- Results View -->
   <div *ngIf="result" class="grid grid-cols-1 md:grid-cols-3 gap-6 animate-fade-in delay-75 duration-300">
-    <div class="bg-white rounded-2xl p-6 border border-slate-200 flex flex-col items-center justify-center shadow-sm">
-      <p class="text-slate-500 font-medium mb-1 text-center">Total Investido<br><span class="text-xs text-slate-400 font-normal">(Capital + Aportes)</span></p>
-      <p class="text-xl font-bold text-slate-700 mt-2">{{ result.totalInvested | currency:'BRL':'symbol':'1.2-2' }}</p>
+    <div class="bg-white dark:bg-slate-800 rounded-2xl p-6 border border-slate-200 dark:border-slate-700 flex flex-col items-center justify-center shadow-sm transition-colors duration-200">
+      <p class="text-slate-500 dark:text-slate-400 font-medium mb-1 text-center transition-colors">Total Investido<br><span class="text-xs text-slate-400 dark:text-slate-500 font-normal transition-colors">(Capital + Aportes)</span></p>
+      <p class="text-xl font-bold text-slate-700 dark:text-slate-100 mt-2 transition-colors">{{ result.totalInvested | currency:'BRL':'symbol':'1.2-2' }}</p>
     </div>
     
-    <div class="bg-indigo-50 rounded-2xl p-6 border border-indigo-100 flex flex-col items-center justify-center shadow-sm relative overflow-hidden">
-      <div class="absolute -right-4 -bottom-4 opacity-10">
+    <div class="bg-indigo-50 dark:bg-indigo-900/20 rounded-2xl p-6 border border-indigo-100 dark:border-indigo-900/50 flex flex-col items-center justify-center shadow-sm relative overflow-hidden transition-colors duration-200">
+      <div class="absolute -right-4 -bottom-4 opacity-10 dark:opacity-5">
         <span class="material-icons text-9xl">savings</span>
       </div>
-      <p class="text-indigo-800 font-medium mb-1 relative z-10 text-center">Total em Juros<br><span class="text-xs opacity-0">.</span></p>
-      <p class="text-2xl font-bold text-indigo-600 mt-2 relative z-10">{{ result.totalInterest | currency:'BRL':'symbol':'1.2-2' }}</p>
+      <p class="text-indigo-800 dark:text-indigo-300 font-medium mb-1 relative z-10 text-center transition-colors">Total em Juros<br><span class="text-xs opacity-0">.</span></p>
+      <p class="text-2xl font-bold text-indigo-600 dark:text-indigo-400 mt-2 relative z-10 transition-colors">{{ result.totalInterest | currency:'BRL':'symbol':'1.2-2' }}</p>
     </div>
 
-    <div class="bg-gradient-to-br from-indigo-500 to-purple-600 rounded-2xl p-6 border border-indigo-400 flex flex-col items-center justify-center shadow-md text-white shadow-indigo-200">
+    <div class="bg-gradient-to-br from-indigo-500 to-purple-600 dark:from-indigo-600 dark:to-purple-800 rounded-2xl p-6 border border-indigo-400 dark:border-indigo-500 flex flex-col items-center justify-center shadow-md text-white shadow-indigo-200 dark:shadow-none transition-colors duration-200">
       <p class="text-indigo-100 font-bold uppercase tracking-wider text-xs mb-1 text-center">Montante Final<br><span class="text-xs opacity-0">.</span></p>
       <p class="text-3xl font-extrabold mt-2">{{ result.finalAmount | currency:'BRL':'symbol':'1.2-2' }}</p>
     </div>

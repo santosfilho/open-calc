@@ -17,12 +17,24 @@ export class CompoundInterestComponent {
   form: FormGroup;
   result: CompoundInterestResult | null = null;
   
+  ratePeriods = [
+    { label: '% ao mês', value: 'am' },
+    { label: '% ao ano', value: 'aa' }
+  ];
+
+  timePeriods = [
+    { label: 'meses', value: 'meses' },
+    { label: 'anos', value: 'anos' }
+  ];
+  
   constructor(private fb: FormBuilder, private financeService: FinanceCalculatorService) {
     this.form = this.fb.group({
       principal: [1000, [Validators.required, Validators.min(0)]],
       monthlyContribution: [100, [Validators.min(0)]],
       rate: [1, [Validators.required, Validators.min(0)]],
-      timeInMonths: [12, [Validators.required, Validators.min(1)]]
+      ratePeriod: ['am'],
+      timeInMonths: [12, [Validators.required, Validators.min(1)]],
+      timePeriod: ['meses']
     });
   }
 
@@ -31,8 +43,12 @@ export class CompoundInterestComponent {
       this.form.markAllAsTouched();
       return;
     }
-    const { principal, monthlyContribution, rate, timeInMonths } = this.form.value;
-    const contribution = monthlyContribution || 0;
-    this.result = this.financeService.calculateCompoundInterest(principal, contribution, rate, timeInMonths);
+    const { ratePeriod, timePeriod } = this.form.value;
+    const principal = Number(this.form.value.principal) || 0;
+    const monthlyContribution = Number(this.form.value.monthlyContribution) || 0;
+    const rate = Number(this.form.value.rate) || 0;
+    const timeInMonths = Number(this.form.value.timeInMonths) || 0;
+
+    this.result = this.financeService.calculateCompoundInterest(principal, monthlyContribution, rate, timeInMonths, ratePeriod, timePeriod);
   }
 }

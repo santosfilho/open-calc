@@ -3,7 +3,8 @@ export const CALCULATORS_CONFIG = [
     category: 'Tempo',
     path: '/tempo',
     calculators: [
-      { name: 'Manipulação de Datas', route: 'manipulacao', icon: 'schedule' }
+      { name: 'Manipulação de Datas', route: 'manipulacao', icon: 'schedule' },
+      { name: 'Diferença entre Datas', route: 'diferenca', icon: 'date_range' }
     ]
   },
   {

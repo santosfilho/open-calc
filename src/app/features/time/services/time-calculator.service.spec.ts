@@ -49,4 +49,54 @@ describe('TimeCalculatorService', () => {
       expect(result.getFullYear()).toBe(2030);
     });
   });
+
+  describe('calculateDifference', () => {
+    it('should return 14 days within the same month', () => {
+      const res = service.calculateDifference(new Date(2024, 0, 1), new Date(2024, 0, 15));
+      expect(res.years).toBe(0);
+      expect(res.months).toBe(0);
+      expect(res.days).toBe(14);
+      expect(res.totalDays).toBe(14);
+    });
+
+    it('should return 2 months when crossing months', () => {
+      const res = service.calculateDifference(new Date(2024, 0, 15), new Date(2024, 2, 15));
+      expect(res.years).toBe(0);
+      expect(res.months).toBe(2);
+      expect(res.days).toBe(0);
+      expect(res.totalDays).toBe(60);
+    });
+
+    it('should return 5 years crossing years', () => {
+      const res = service.calculateDifference(new Date(2020, 5, 1), new Date(2025, 5, 1));
+      expect(res.years).toBe(5);
+      expect(res.months).toBe(0);
+      expect(res.days).toBe(0);
+      expect(res.totalDays).toBe(1826); // 5×365 + 1 leap day (Feb 29 2024)
+    });
+
+    it('should handle leap year February correctly', () => {
+      // 2024 is a leap year: Feb has 29 days
+      const res = service.calculateDifference(new Date(2024, 1, 28), new Date(2024, 2, 1));
+      expect(res.totalDays).toBe(2);
+    });
+
+    it('should return the same result regardless of date order (absolute)', () => {
+      const forward  = service.calculateDifference(new Date(2024, 0, 15), new Date(2024, 2, 15));
+      const backward = service.calculateDifference(new Date(2024, 2, 15), new Date(2024, 0, 15));
+      expect(forward.years).toBe(backward.years);
+      expect(forward.months).toBe(backward.months);
+      expect(forward.days).toBe(backward.days);
+      expect(forward.totalDays).toBe(backward.totalDays);
+    });
+
+    it('should return all zeros for the same date', () => {
+      const res = service.calculateDifference(new Date(2024, 5, 15), new Date(2024, 5, 15));
+      expect(res.years).toBe(0);
+      expect(res.months).toBe(0);
+      expect(res.days).toBe(0);
+      expect(res.totalDays).toBe(0);
+    });
+  });
 });
+

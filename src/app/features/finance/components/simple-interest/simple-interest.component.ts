@@ -17,11 +17,23 @@ export class SimpleInterestComponent {
   form: FormGroup;
   result: SimpleInterestResult | null = null;
   
+  ratePeriods = [
+    { label: '% ao mês', value: 'am' },
+    { label: '% ao ano', value: 'aa' }
+  ];
+
+  timePeriods = [
+    { label: 'meses', value: 'meses' },
+    { label: 'anos', value: 'anos' }
+  ];
+  
   constructor(private fb: FormBuilder, private financeService: FinanceCalculatorService) {
     this.form = this.fb.group({
       principal: [1000, [Validators.required, Validators.min(0)]],
       rate: [5, [Validators.required, Validators.min(0)]],
-      time: [12, [Validators.required, Validators.min(1)]]
+      ratePeriod: ['am'],
+      time: [12, [Validators.required, Validators.min(1)]],
+      timePeriod: ['meses']
     });
   }
 
@@ -30,7 +42,11 @@ export class SimpleInterestComponent {
       this.form.markAllAsTouched();
       return;
     }
-    const { principal, rate, time } = this.form.value;
-    this.result = this.financeService.calculateSimpleInterest(principal, rate, time);
+    const { ratePeriod, timePeriod } = this.form.value;
+    const principal = Number(this.form.value.principal) || 0;
+    const rate = Number(this.form.value.rate) || 0;
+    const time = Number(this.form.value.time) || 0;
+    
+    this.result = this.financeService.calculateSimpleInterest(principal, rate, time, ratePeriod, timePeriod);
   }
 }

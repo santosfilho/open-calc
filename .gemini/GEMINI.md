@@ -14,11 +14,17 @@ O **OpenCalc** é uma aplicação frontend desenvolvida em Angular que atua como
 
 ### 3.1. Contexto: Calculadoras de Tempo (`/tempo`)
 Módulo responsável por cálculos envolvendo datas, horas e períodos.
-- **Funcionalidade Inicial:**
+- **Funcionalidades Implementadas:**
   - **Calculadora de Manipulação de Datas:**
     - **Inputs:** Data de início, Operação (Somar/Subtrair), Quantidade, Unidade (Dias, Semanas, Meses, Anos).
     - **Output:** Data final calculada e formatada.
-  - **Preparação para o Futuro:** Diferença entre duas datas, conversão de fuso horário (com integração a APIs de Timezone), contagem regressiva.
+  - **Calculadora de Diferença entre Datas:**
+    - **Inputs:** Data inicial e Data final.
+    - **Output:** Diferença expressa em dois formatos simultâneos:
+      1. **Detalhado:** X anos, Y meses e Z dias.
+      2. **Simples:** Total em dias.
+    - **Observação:** O cálculo é sempre absoluto (independente da ordem das datas).
+  - **Preparação para o Futuro:** Conversão de fuso horário (com integração a APIs de Timezone), contagem regressiva.
 
 ### 3.2. Contexto: Calculadoras de Finanças (`/financas`)
 Módulo dedicado a cálculos matemáticos voltados para economia e investimentos.

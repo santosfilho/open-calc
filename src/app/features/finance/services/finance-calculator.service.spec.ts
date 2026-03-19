@@ -22,6 +22,22 @@ describe('FinanceCalculatorService', () => {
       expect(res.totalInterest).toBe(600);
       expect(res.finalAmount).toBe(1600);
     });
+
+    it('should convert yearly rate and monthly time correctly', () => {
+      // Principal = 1000, Rate = 60% aa, Time = 12 meses
+      // Interest = 1000 * (60/100) * (12/12) = 600
+      const res = service.calculateSimpleInterest(1000, 60, 12, 'aa', 'meses');
+      expect(res.totalInterest).toBe(600);
+      expect(res.finalAmount).toBe(1600);
+    });
+
+    it('should convert monthly rate and yearly time correctly', () => {
+      // Principal = 1000, Rate = 5% am, Time = 1 ano
+      // Interest = 1000 * (5/100) * (1 * 12) = 600
+      const res = service.calculateSimpleInterest(1000, 5, 1, 'am', 'anos');
+      expect(res.totalInterest).toBe(600);
+      expect(res.finalAmount).toBe(1600);
+    });
   });
 
   describe('calculateCompoundInterest', () => {
@@ -45,6 +61,22 @@ describe('FinanceCalculatorService', () => {
       expect(res.totalInvested).toBe(2200);
       expect(res.finalAmount).toBeCloseTo(2395.07, 2);
       expect(res.totalInterest).toBeCloseTo(195.07, 2);
+    });
+
+    it('should convert yearly time to months correctly', () => {
+      // should match the 12 month calculation
+      const res = service.calculateCompoundInterest(1000, 100, 1, 1, 'am', 'anos');
+      expect(res.totalInvested).toBe(2200);
+      expect(res.finalAmount).toBeCloseTo(2395.07, 2);
+      expect(res.totalInterest).toBeCloseTo(195.07, 2);
+    });
+
+    it('should convert yearly rate to monthly equivalent correctly', () => {
+      // 12.6825% aa is approx 1% am
+      const res = service.calculateCompoundInterest(1000, 0, 12.682503, 12, 'aa', 'meses');
+      expect(res.totalInvested).toBe(1000);
+      expect(res.finalAmount).toBeCloseTo(1126.82, 2);
+      expect(res.totalInterest).toBeCloseTo(126.82, 2);
     });
   });
 });
