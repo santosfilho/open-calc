@@ -1,11 +1,12 @@
-import { Component, Input, forwardRef } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { ControlValueAccessor, NG_VALUE_ACCESSOR, ReactiveFormsModule, AbstractControl } from '@angular/forms';
+import { ReactiveFormsModule, AbstractControl, FormControl } from '@angular/forms';
+import { NgxMaskDirective } from 'ngx-mask';
 
 @Component({
   selector: 'app-dynamic-input',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule],
+  imports: [CommonModule, ReactiveFormsModule, NgxMaskDirective],
   template: `
     <div class="space-y-1 w-full">
       <label *ngIf="label" class="block text-sm font-medium text-slate-700 dark:text-slate-300">{{ label }}</label>
@@ -14,12 +15,14 @@ import { ControlValueAccessor, NG_VALUE_ACCESSOR, ReactiveFormsModule, AbstractC
           {{ prefix }}
         </span>
         <input
-          [type]="type"
+          [type]="maskConfig ? 'text' : type"
           [placeholder]="placeholder"
-          [value]="value"
-          (input)="onInputChange($event)"
-          (blur)="onTouched()"
-          [disabled]="disabled"
+          [formControl]="formControlInstance"
+          [mask]="maskConfig?.mask || ''"
+          [prefix]="maskConfig?.prefix || ''"
+          [thousandSeparator]="maskConfig?.thousandSeparator || ''"
+          [decimalMarker]="maskConfig?.decimalMarker || '.'"
+          [dropSpecialCharacters]="true"
           class="block w-full rounded-md border-0 py-2.5 text-slate-900 dark:text-white shadow-sm ring-1 ring-inset focus:ring-2 focus:ring-inset sm:text-sm sm:leading-6 transition-all duration-200 outline-none"
           [ngClass]="{
              'pl-9': prefix,
@@ -46,16 +49,9 @@ import { ControlValueAccessor, NG_VALUE_ACCESSOR, ReactiveFormsModule, AbstractC
         <span class="material-icons text-sm mr-1">error_outline</span>{{ errorMessage }}
       </p>
     </div>
-  `,
-  providers: [
-    {
-      provide: NG_VALUE_ACCESSOR,
-      useExisting: forwardRef(() => DynamicInputComponent),
-      multi: true
-    }
-  ]
+  `
 })
-export class DynamicInputComponent implements ControlValueAccessor {
+export class DynamicInputComponent {
   @Input() label = '';
   @Input() type = 'text';
   @Input() placeholder = '';
@@ -63,38 +59,19 @@ export class DynamicInputComponent implements ControlValueAccessor {
   @Input() suffix?: string;
   @Input() suffixOptions?: {label: string, value: string}[];
   @Input() suffixControl?: AbstractControl | null;
+  @Input() maskConfig?: { mask: string, prefix?: string, thousandSeparator?: string, decimalMarker?: '.' | ',' | ['.', ','] };
   @Input() errorMessage?: string;
   @Input() control?: AbstractControl | null;
 
-  value: any = '';
-  disabled = false;
-  
-  onChange: any = () => {}
-  onTouched: any = () => {}
+  get formControlInstance(): FormControl {
+    return this.control as FormControl;
+  }
+
+  get disabled(): boolean {
+    return this.control?.disabled || false;
+  }
 
   get hasError(): boolean {
     return !!(this.control && this.control.invalid && (this.control.dirty || this.control.touched));
-  }
-
-  writeValue(value: any): void {
-    this.value = value !== undefined ? value : '';
-  }
-
-  onInputChange(event: Event): void {
-    const val = (event.target as HTMLInputElement).value;
-    this.value = val;
-    this.onChange(this.value);
-  }
-
-  registerOnChange(fn: any): void {
-    this.onChange = fn;
-  }
-
-  registerOnTouched(fn: any): void {
-    this.onTouched = fn;
-  }
-
-  setDisabledState(isDisabled: boolean): void {
-    this.disabled = isDisabled;
   }
 }

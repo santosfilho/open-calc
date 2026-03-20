@@ -18,8 +18,8 @@ export class DateManipulationComponent {
   resultDate: Date | null = null;
   
   operations: { value: TimeOperation, label: string }[] = [
-    { value: 'add', label: 'Somar (+)' },
-    { value: 'subtract', label: 'Subtrair (-)' }
+    { value: 'add', label: 'Adicionar' },
+    { value: 'subtract', label: 'Subtrair' }
   ];
   
   units: { value: TimeUnit, label: string }[] = [

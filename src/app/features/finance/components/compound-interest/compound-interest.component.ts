@@ -27,6 +27,13 @@ export class CompoundInterestComponent {
     { label: 'anos', value: 'anos' }
   ];
   
+  currencyMask = {
+    mask: 'separator.2',
+    prefix: 'R$ ',
+    thousandSeparator: '.',
+    decimalMarker: ',' as const
+  };
+
   constructor(private fb: FormBuilder, private financeService: FinanceCalculatorService) {
     this.form = this.fb.group({
       principal: [1000, [Validators.required, Validators.min(0)]],
