@@ -4,7 +4,8 @@ export const CALCULATORS_CONFIG = [
     path: '/tempo',
     calculators: [
       { name: 'Manipulação de Datas', route: 'manipulacao', icon: 'schedule' },
-      { name: 'Diferença entre Datas', route: 'diferenca', icon: 'date_range' }
+      { name: 'Diferença entre Datas', route: 'diferenca', icon: 'date_range' },
+      { name: 'Dias Úteis', route: 'dias-uteis', icon: 'work_history' }
     ]
   },
   {

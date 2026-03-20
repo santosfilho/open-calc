@@ -24,6 +24,15 @@ Módulo responsável por cálculos envolvendo datas, horas e períodos.
       1. **Detalhado:** X anos, Y meses e Z dias.
       2. **Simples:** Total em dias.
     - **Observação:** O cálculo é sempre absoluto (independente da ordem das datas).
+  - **Calculadora de Dias Úteis:**
+    - **Modos de Operação:**
+      1. **Contar dias úteis entre duas datas:** exclui sábados, domingos e feriados.
+      2. **Adicionar N dias úteis a uma data:** descobre a data resultante.
+    - **Inputs:** Data(s), Estado (UF, opcional), Município (opcional, dependente do estado selecionado).
+    - **Feriados Suportados:** Nacionais (fixos + móveis pré-computados 2025–2030), Estaduais (27 UFs) e Municipais (capitais).
+    - **Dados:** Armazenados localmente em `src/assets/data/holidays.json`.
+    - **Arquitetura:** `HolidayProviderService` (abstrato) → `LocalHolidayProviderService` — preparado para futuras integrações com API e adição de municípios.
+    - **Limitação de Datas:** Intervalo suportado: 01/01/2025 a 31/12/2030.
   - **Preparação para o Futuro:** Conversão de fuso horário (com integração a APIs de Timezone), contagem regressiva.
 
 ### 3.2. Contexto: Calculadoras de Finanças (`/financas`)

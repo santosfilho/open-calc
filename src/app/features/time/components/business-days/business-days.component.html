@@ -1,0 +1,129 @@
+<div class="max-w-3xl mx-auto space-y-6 animate-fade-in animate-duration-300">
+  <div class="bg-white dark:bg-slate-800 rounded-2xl shadow-sm border border-slate-200 dark:border-slate-700 overflow-hidden relative transition-colors duration-200">
+    <div class="h-2 w-full bg-gradient-to-r from-amber-400 to-orange-500 absolute top-0 left-0"></div>
+
+    <div class="px-6 py-5 border-b border-slate-100 dark:border-slate-700 flex items-center justify-between transition-colors">
+      <div>
+        <h2 class="text-xl font-bold text-slate-800 dark:text-slate-100 transition-colors">Dias Úteis</h2>
+        <p class="text-slate-500 dark:text-slate-400 text-sm mt-1 transition-colors">Calcule dias úteis considerando feriados nacionais, estaduais e municipais.</p>
+      </div>
+      <div class="h-10 w-10 bg-amber-50 dark:bg-amber-900/30 text-amber-600 dark:text-amber-400 rounded-full flex items-center justify-center transition-colors">
+        <span class="material-icons">work_history</span>
+      </div>
+    </div>
+
+    <div class="p-6 md:p-8">
+      <!-- Mode Toggle -->
+      <div class="mb-6">
+        <div class="flex rounded-lg shadow-sm border border-slate-200 dark:border-slate-700 p-1 bg-slate-50 dark:bg-slate-900/50">
+          <button
+            type="button"
+            *ngFor="let mode of modes"
+            (click)="setMode($any(mode.value))"
+            [ngClass]="{
+              'bg-white dark:bg-slate-700 text-amber-600 dark:text-amber-400 font-bold shadow-sm': activeMode === mode.value,
+              'text-slate-600 dark:text-slate-400 hover:text-slate-800 dark:hover:text-slate-200': activeMode !== mode.value
+            }"
+            class="flex-1 rounded-md py-2.5 text-sm font-medium transition-all duration-200 outline-none focus:ring-2 focus:ring-amber-500/50">
+            {{ mode.label }}
+          </button>
+        </div>
+      </div>
+
+      <form [formGroup]="form" (ngSubmit)="calculate()" class="space-y-6">
+
+        <!-- Dates Row -->
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <app-dynamic-input
+            label="Data Inicial"
+            type="date"
+            [control]="form.get('startDate')"
+            [attr.min]="minDate"
+            [attr.max]="maxDate">
+          </app-dynamic-input>
+
+          <app-dynamic-input
+            *ngIf="activeMode === 'count'"
+            label="Data Final"
+            type="date"
+            [control]="form.get('endDate')"
+            [attr.min]="minDate"
+            [attr.max]="maxDate">
+          </app-dynamic-input>
+
+          <app-dynamic-input
+            *ngIf="activeMode === 'add'"
+            label="Quantidade de Dias Úteis"
+            type="number"
+            [control]="form.get('daysToAdd')"
+            errorMessage="Informe pelo menos 1 dia útil">
+          </app-dynamic-input>
+        </div>
+
+        <!-- Location Row -->
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <div class="space-y-1">
+            <label class="block text-sm font-medium text-slate-700 dark:text-slate-300 transition-colors">Estado</label>
+            <div class="relative">
+              <select formControlName="uf" class="block w-full rounded-md border-0 py-2.5 px-3 pr-10 text-slate-900 shadow-sm ring-1 ring-inset ring-slate-300 focus:ring-2 focus:ring-inset focus:ring-amber-500 sm:text-sm sm:leading-6 bg-white transition-all duration-200 outline-none hover:ring-slate-400 appearance-none dark:bg-slate-800 dark:text-white dark:ring-slate-600 dark:focus:ring-amber-400 dark:hover:ring-slate-500">
+                <option value="">Todos (apenas nacionais)</option>
+                <option *ngFor="let s of states" [value]="s.uf">{{ s.uf }} - {{ s.state }}</option>
+              </select>
+              <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-slate-500 dark:text-slate-400 transition-colors">
+                <span class="material-icons text-sm">expand_more</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="space-y-1">
+            <label class="block text-sm font-medium text-slate-700 dark:text-slate-300 transition-colors">Município</label>
+            <div class="relative">
+              <select formControlName="municipality" class="block w-full rounded-md border-0 py-2.5 px-3 pr-10 text-slate-900 shadow-sm ring-1 ring-inset ring-slate-300 focus:ring-2 focus:ring-inset focus:ring-amber-500 sm:text-sm sm:leading-6 bg-white transition-all duration-200 outline-none hover:ring-slate-400 appearance-none dark:bg-slate-800 dark:text-white dark:ring-slate-600 dark:focus:ring-amber-400 dark:hover:ring-slate-500 disabled:bg-slate-50 disabled:dark:bg-slate-900/50 disabled:cursor-not-allowed disabled:text-slate-400">
+                <option value="">Nenhum (apenas estaduais)</option>
+                <option *ngFor="let m of municipalities" [value]="m.name">{{ m.name }}{{ m.isCapital ? ' (Capital)' : '' }}</option>
+              </select>
+              <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-slate-500 dark:text-slate-400 transition-colors">
+                <span class="material-icons text-sm">expand_more</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="pt-4 flex justify-end">
+          <app-ui-button type="submit" variant="primary" icon="calculate">
+            Calcular
+          </app-ui-button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Result: Count mode -->
+  <div *ngIf="result && activeMode === 'count'" class="grid grid-cols-1 md:grid-cols-2 gap-4 animate-fade-in">
+    <div class="bg-gradient-to-br from-amber-50 to-orange-50 dark:from-slate-800 dark:to-slate-700 rounded-2xl p-6 border border-amber-100 dark:border-slate-600 shadow-sm text-center transition-all">
+      <h3 class="text-sm font-bold text-amber-800 dark:text-amber-400 uppercase tracking-wider mb-2 transition-colors">Dias Úteis</h3>
+      <p class="text-4xl font-extrabold text-amber-900 dark:text-amber-100 transition-colors">{{ result.businessDays }}</p>
+    </div>
+    <div class="bg-gradient-to-br from-orange-50 to-red-50 dark:from-slate-800 dark:to-slate-700 rounded-2xl p-6 border border-orange-100 dark:border-slate-600 shadow-sm text-center transition-all">
+      <h3 class="text-sm font-bold text-orange-800 dark:text-orange-400 uppercase tracking-wider mb-2 transition-colors">Feriados no Período</h3>
+      <p class="text-4xl font-extrabold text-orange-900 dark:text-orange-100 transition-colors">{{ result.holidaysInPeriod }}</p>
+    </div>
+  </div>
+
+  <!-- Result: Add mode -->
+  <div *ngIf="result && result.resultDate && activeMode === 'add'" class="grid grid-cols-1 md:grid-cols-3 gap-4 animate-fade-in">
+    <div class="md:col-span-2 bg-gradient-to-r from-amber-50 to-orange-50 dark:from-slate-800 dark:to-slate-700 rounded-2xl p-6 border border-amber-100 dark:border-slate-600 shadow-sm transition-all">
+      <h3 class="text-sm font-bold text-amber-800 dark:text-amber-400 uppercase tracking-wider mb-2 transition-colors">Data Resultante</h3>
+      <p class="text-3xl md:text-4xl font-extrabold text-amber-900 dark:text-amber-100 transition-colors">
+        {{ result.resultDate | date:'dd/MM/yyyy' }}
+      </p>
+      <p class="text-sm md:text-base font-medium text-amber-700 dark:text-amber-300 mt-2 uppercase tracking-wide transition-colors">
+        {{ result.resultDate | date:'EEEE' }}
+      </p>
+    </div>
+    <div class="bg-gradient-to-br from-orange-50 to-red-50 dark:from-slate-800 dark:to-slate-700 rounded-2xl p-6 border border-orange-100 dark:border-slate-600 shadow-sm text-center transition-all">
+      <h3 class="text-sm font-bold text-orange-800 dark:text-orange-400 uppercase tracking-wider mb-2 transition-colors">Feriados Pulados</h3>
+      <p class="text-4xl font-extrabold text-orange-900 dark:text-orange-100 transition-colors">{{ result.holidaysInPeriod }}</p>
+    </div>
+  </div>
+</div>
