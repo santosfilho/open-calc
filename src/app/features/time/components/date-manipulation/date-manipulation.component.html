@@ -17,28 +17,34 @@
         
         <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
           <app-dynamic-input
-            formControlName="startDate"
             label="Data Base"
             type="date"
             [control]="form.get('startDate')">
           </app-dynamic-input>
           
-          <div class="space-y-1">
+          <div class="space-y-2">
             <label class="block text-sm font-medium text-slate-700 dark:text-slate-300 transition-colors">Operação</label>
-            <div class="relative">
-              <select formControlName="operation" class="block w-full rounded-md border-0 py-2.5 px-3 pr-10 text-slate-900 shadow-sm ring-1 ring-inset ring-slate-300 focus:ring-2 focus:ring-inset focus:ring-emerald-500 sm:text-sm sm:leading-6 bg-white transition-all duration-200 outline-none hover:ring-slate-400 appearance-none dark:bg-slate-800 dark:text-white dark:ring-slate-600 dark:focus:ring-emerald-400 dark:hover:ring-slate-500">
-                <option *ngFor="let op of operations" [value]="op.value">{{ op.label }}</option>
-              </select>
-              <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-slate-500 dark:text-slate-400 transition-colors">
-                <span class="material-icons text-sm">expand_more</span>
-              </div>
+            <div class="flex rounded-lg shadow-sm border border-slate-200 dark:border-slate-700 p-1 bg-slate-50 dark:bg-slate-900/50">
+              <button 
+                type="button" 
+                (click)="form.get('operation')?.setValue(op.value)"
+                *ngFor="let op of operations"
+                [ngClass]="{
+                  'bg-white dark:bg-slate-700 text-emerald-600 dark:text-emerald-400 font-bold shadow-sm': form.get('operation')?.value === op.value,
+                  'text-slate-600 dark:text-slate-400 hover:text-slate-800 dark:hover:text-slate-200': form.get('operation')?.value !== op.value
+                }"
+                class="flex-1 rounded-md py-2 text-sm font-medium transition-all duration-200 outline-none focus:ring-2 focus:ring-emerald-500/50">
+                <div class="flex items-center justify-center gap-2">
+                  <span class="material-icons text-[18px] leading-none">{{ op.value === 'add' ? 'add_circle_outline' : 'remove_circle_outline' }}</span>
+                  {{ op.label }}
+                </div>
+              </button>
             </div>
           </div>
         </div>
 
         <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
           <app-dynamic-input
-            formControlName="amount"
             label="Quantidade"
             type="number"
             [control]="form.get('amount')"
