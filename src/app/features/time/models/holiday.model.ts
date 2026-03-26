@@ -23,8 +23,18 @@ export interface HolidaysData {
   states: StateHolidays[];
 }
 
+export interface HolidayDetail {
+  date: Date;
+  name: string;
+  scope: 'national' | 'state' | 'municipal';
+}
+
 export interface BusinessDayResult {
   businessDays: number;
   holidaysInPeriod: number;
+  saturdays: number;
+  sundays: number;
+  calendarDays: number;
+  holidays: HolidayDetail[];
   resultDate?: Date;
 }

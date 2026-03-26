@@ -99,31 +99,123 @@
   </div>
 
   <!-- Result: Count mode -->
-  <div *ngIf="result && activeMode === 'count'" class="grid grid-cols-1 md:grid-cols-2 gap-4 animate-fade-in">
-    <div class="bg-gradient-to-br from-amber-50 to-orange-50 dark:from-slate-800 dark:to-slate-700 rounded-2xl p-6 border border-amber-100 dark:border-slate-600 shadow-sm text-center transition-all">
-      <h3 class="text-sm font-bold text-amber-800 dark:text-amber-400 uppercase tracking-wider mb-2 transition-colors">Dias Úteis</h3>
-      <p class="text-4xl font-extrabold text-amber-900 dark:text-amber-100 transition-colors">{{ result.businessDays }}</p>
+  <div *ngIf="result && activeMode === 'count'" class="space-y-4 animate-fade-in">
+    <!-- Primary metrics -->
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+      <div class="bg-gradient-to-br from-amber-50 to-orange-50 dark:from-slate-800 dark:to-slate-700 rounded-2xl p-6 border border-amber-100 dark:border-slate-600 shadow-sm text-center transition-all">
+        <h3 class="text-sm font-bold text-amber-800 dark:text-amber-400 uppercase tracking-wider mb-2 transition-colors">Dias Úteis</h3>
+        <p class="text-4xl font-extrabold text-amber-900 dark:text-amber-100 transition-colors">{{ result.businessDays }}</p>
+      </div>
+      <div class="bg-gradient-to-br from-orange-50 to-red-50 dark:from-slate-800 dark:to-slate-700 rounded-2xl p-6 border border-orange-100 dark:border-slate-600 shadow-sm text-center transition-all">
+        <h3 class="text-sm font-bold text-orange-800 dark:text-orange-400 uppercase tracking-wider mb-2 transition-colors">Feriados no Período</h3>
+        <p class="text-4xl font-extrabold text-orange-900 dark:text-orange-100 transition-colors">{{ result.holidaysInPeriod }}</p>
+      </div>
     </div>
-    <div class="bg-gradient-to-br from-orange-50 to-red-50 dark:from-slate-800 dark:to-slate-700 rounded-2xl p-6 border border-orange-100 dark:border-slate-600 shadow-sm text-center transition-all">
-      <h3 class="text-sm font-bold text-orange-800 dark:text-orange-400 uppercase tracking-wider mb-2 transition-colors">Feriados no Período</h3>
-      <p class="text-4xl font-extrabold text-orange-900 dark:text-orange-100 transition-colors">{{ result.holidaysInPeriod }}</p>
+
+    <!-- Secondary metrics -->
+    <div class="grid grid-cols-3 gap-3">
+      <div class="bg-white dark:bg-slate-800 rounded-xl p-4 border border-slate-200 dark:border-slate-700 text-center transition-all">
+        <p class="text-xs font-semibold text-slate-500 dark:text-slate-400 uppercase tracking-wider mb-1">Sábados</p>
+        <p class="text-2xl font-bold text-slate-700 dark:text-slate-200">{{ result.saturdays }}</p>
+      </div>
+      <div class="bg-white dark:bg-slate-800 rounded-xl p-4 border border-slate-200 dark:border-slate-700 text-center transition-all">
+        <p class="text-xs font-semibold text-slate-500 dark:text-slate-400 uppercase tracking-wider mb-1">Domingos</p>
+        <p class="text-2xl font-bold text-slate-700 dark:text-slate-200">{{ result.sundays }}</p>
+      </div>
+      <div class="bg-white dark:bg-slate-800 rounded-xl p-4 border border-slate-200 dark:border-slate-700 text-center transition-all">
+        <p class="text-xs font-semibold text-slate-500 dark:text-slate-400 uppercase tracking-wider mb-1">Dias Corridos</p>
+        <p class="text-2xl font-bold text-slate-700 dark:text-slate-200">{{ result.calendarDays }}</p>
+      </div>
+    </div>
+
+    <!-- Holiday listing -->
+    <div *ngIf="result.holidays.length > 0" class="bg-white dark:bg-slate-800 rounded-xl border border-slate-200 dark:border-slate-700 overflow-hidden transition-all">
+      <div class="px-5 py-3 border-b border-slate-100 dark:border-slate-700">
+        <h4 class="text-sm font-bold text-slate-700 dark:text-slate-300 flex items-center gap-2">
+          <span class="material-icons text-base text-amber-500">event_busy</span>
+          Feriados considerados no período
+        </h4>
+      </div>
+      <div class="divide-y divide-slate-100 dark:divide-slate-700">
+        <div *ngFor="let h of result.holidays" class="px-5 py-3 flex items-center justify-between gap-4">
+          <div class="flex items-center gap-3 min-w-0">
+            <span class="text-sm font-mono font-semibold text-slate-600 dark:text-slate-300 whitespace-nowrap">{{ h.date | date:'dd/MM/yyyy' }}</span>
+            <span class="text-sm text-slate-700 dark:text-slate-200 truncate">{{ h.name }}</span>
+          </div>
+          <span class="text-xs font-medium px-2 py-0.5 rounded-full whitespace-nowrap"
+            [ngClass]="{
+              'bg-amber-100 text-amber-800 dark:bg-amber-900/40 dark:text-amber-300': h.scope === 'national',
+              'bg-blue-100 text-blue-800 dark:bg-blue-900/40 dark:text-blue-300': h.scope === 'state',
+              'bg-emerald-100 text-emerald-800 dark:bg-emerald-900/40 dark:text-emerald-300': h.scope === 'municipal'
+            }">
+            {{ h.scope === 'national' ? 'Nacional' : h.scope === 'state' ? 'Estadual' : 'Municipal' }}
+          </span>
+        </div>
+      </div>
     </div>
   </div>
 
   <!-- Result: Add mode -->
-  <div *ngIf="result && result.resultDate && activeMode === 'add'" class="grid grid-cols-1 md:grid-cols-3 gap-4 animate-fade-in">
-    <div class="md:col-span-2 bg-gradient-to-r from-amber-50 to-orange-50 dark:from-slate-800 dark:to-slate-700 rounded-2xl p-6 border border-amber-100 dark:border-slate-600 shadow-sm transition-all">
-      <h3 class="text-sm font-bold text-amber-800 dark:text-amber-400 uppercase tracking-wider mb-2 transition-colors">Data Resultante</h3>
-      <p class="text-3xl md:text-4xl font-extrabold text-amber-900 dark:text-amber-100 transition-colors">
-        {{ result.resultDate | date:'dd/MM/yyyy' }}
-      </p>
-      <p class="text-sm md:text-base font-medium text-amber-700 dark:text-amber-300 mt-2 uppercase tracking-wide transition-colors">
-        {{ result.resultDate | date:'EEEE' }}
-      </p>
+  <div *ngIf="result && result.resultDate && activeMode === 'add'" class="space-y-4 animate-fade-in">
+    <!-- Primary metrics -->
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+      <div class="md:col-span-2 bg-gradient-to-r from-amber-50 to-orange-50 dark:from-slate-800 dark:to-slate-700 rounded-2xl p-6 border border-amber-100 dark:border-slate-600 shadow-sm transition-all">
+        <h3 class="text-sm font-bold text-amber-800 dark:text-amber-400 uppercase tracking-wider mb-2 transition-colors">Data Resultante</h3>
+        <p class="text-3xl md:text-4xl font-extrabold text-amber-900 dark:text-amber-100 transition-colors">
+          {{ result.resultDate | date:'dd/MM/yyyy' }}
+        </p>
+        <p class="text-sm md:text-base font-medium text-amber-700 dark:text-amber-300 mt-2 uppercase tracking-wide transition-colors">
+          {{ result.resultDate | date:'EEEE' }}
+        </p>
+      </div>
+      <div class="bg-gradient-to-br from-orange-50 to-red-50 dark:from-slate-800 dark:to-slate-700 rounded-2xl p-6 border border-orange-100 dark:border-slate-600 shadow-sm text-center transition-all">
+        <h3 class="text-sm font-bold text-orange-800 dark:text-orange-400 uppercase tracking-wider mb-2 transition-colors">Feriados Pulados</h3>
+        <p class="text-4xl font-extrabold text-orange-900 dark:text-orange-100 transition-colors">{{ result.holidaysInPeriod }}</p>
+      </div>
     </div>
-    <div class="bg-gradient-to-br from-orange-50 to-red-50 dark:from-slate-800 dark:to-slate-700 rounded-2xl p-6 border border-orange-100 dark:border-slate-600 shadow-sm text-center transition-all">
-      <h3 class="text-sm font-bold text-orange-800 dark:text-orange-400 uppercase tracking-wider mb-2 transition-colors">Feriados Pulados</h3>
-      <p class="text-4xl font-extrabold text-orange-900 dark:text-orange-100 transition-colors">{{ result.holidaysInPeriod }}</p>
+
+    <!-- Secondary metrics -->
+    <div class="grid grid-cols-3 gap-3">
+      <div class="bg-white dark:bg-slate-800 rounded-xl p-4 border border-slate-200 dark:border-slate-700 text-center transition-all">
+        <p class="text-xs font-semibold text-slate-500 dark:text-slate-400 uppercase tracking-wider mb-1">Sábados</p>
+        <p class="text-2xl font-bold text-slate-700 dark:text-slate-200">{{ result.saturdays }}</p>
+      </div>
+      <div class="bg-white dark:bg-slate-800 rounded-xl p-4 border border-slate-200 dark:border-slate-700 text-center transition-all">
+        <p class="text-xs font-semibold text-slate-500 dark:text-slate-400 uppercase tracking-wider mb-1">Domingos</p>
+        <p class="text-2xl font-bold text-slate-700 dark:text-slate-200">{{ result.sundays }}</p>
+      </div>
+      <div class="bg-white dark:bg-slate-800 rounded-xl p-4 border border-slate-200 dark:border-slate-700 text-center transition-all">
+        <p class="text-xs font-semibold text-slate-500 dark:text-slate-400 uppercase tracking-wider mb-1">Dias Corridos</p>
+        <p class="text-2xl font-bold text-slate-700 dark:text-slate-200">{{ result.calendarDays }}</p>
+      </div>
+    </div>
+
+    <!-- Holiday listing -->
+    <div *ngIf="result.holidays.length > 0" class="bg-white dark:bg-slate-800 rounded-xl border border-slate-200 dark:border-slate-700 overflow-hidden transition-all">
+      <div class="px-5 py-3 border-b border-slate-100 dark:border-slate-700">
+        <h4 class="text-sm font-bold text-slate-700 dark:text-slate-300 flex items-center gap-2">
+          <span class="material-icons text-base text-amber-500">event_busy</span>
+          Feriados pulados no período
+        </h4>
+      </div>
+      <div class="divide-y divide-slate-100 dark:divide-slate-700">
+        <div *ngFor="let h of result.holidays" class="px-5 py-3 flex items-center justify-between gap-4">
+          <div class="flex items-center gap-3 min-w-0">
+            <span class="text-sm font-mono font-semibold text-slate-600 dark:text-slate-300 whitespace-nowrap">{{ h.date | date:'dd/MM/yyyy' }}</span>
+            <span class="text-sm text-slate-700 dark:text-slate-200 truncate">{{ h.name }}</span>
+          </div>
+          <span class="text-xs font-medium px-2 py-0.5 rounded-full whitespace-nowrap"
+            [ngClass]="{
+              'bg-amber-100 text-amber-800 dark:bg-amber-900/40 dark:text-amber-300': h.scope === 'national',
+              'bg-blue-100 text-blue-800 dark:bg-blue-900/40 dark:text-blue-300': h.scope === 'state',
+              'bg-emerald-100 text-emerald-800 dark:bg-emerald-900/40 dark:text-emerald-300': h.scope === 'municipal'
+            }">
+            {{ h.scope === 'national' ? 'Nacional' : h.scope === 'state' ? 'Estadual' : 'Municipal' }}
+          </span>
+        </div>
+      </div>
     </div>
   </div>
+
 </div>
+

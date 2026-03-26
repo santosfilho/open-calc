@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { LocalHolidayProviderService } from './local-holiday-provider.service';
-import { BusinessDayResult, Municipality } from '../models/holiday.model';
+import { BusinessDayResult, Municipality, HolidayDetail } from '../models/holiday.model';
 
 @Injectable({
   providedIn: 'root'
@@ -23,65 +23,75 @@ export class BusinessDayService {
     const start = this.normalizeDate(startDate);
     const end = this.normalizeDate(endDate);
 
-    // Always work from earlier to later
     const from = start <= end ? start : end;
     const to = start <= end ? end : start;
 
-    // Collect holidays for all years in the range
-    const holidaySet = this.buildHolidaySet(from, to, uf, municipality);
+    const holidayDetailMap = this.buildHolidayDetailMap(from, to, uf, municipality);
 
     let businessDays = 0;
     let holidaysInPeriod = 0;
+    let saturdays = 0;
+    let sundays = 0;
+    const holidaysList: HolidayDetail[] = [];
     const current = new Date(from);
 
-    // Count from day AFTER start to end (exclusive of start, inclusive of end — banking convention)
-    // We'll use inclusive of both start and end for simplicity and count working days
+    const msPerDay = 1000 * 60 * 60 * 24;
+    const calendarDays = Math.round((to.getTime() - from.getTime()) / msPerDay) + 1;
+
     while (current <= to) {
       const dayOfWeek = current.getDay();
-      const isWeekend = dayOfWeek === 0 || dayOfWeek === 6;
       const dateKey = this.dateKey(current);
-      const isHoliday = holidaySet.has(dateKey);
+      const holidayDetail = holidayDetailMap.get(dateKey);
 
-      if (!isWeekend && !isHoliday) {
-        businessDays++;
-      }
-      if (isHoliday && !isWeekend) {
+      if (dayOfWeek === 6) saturdays++;
+      if (dayOfWeek === 0) sundays++;
+
+      const isWeekend = dayOfWeek === 0 || dayOfWeek === 6;
+
+      if (holidayDetail && !isWeekend) {
         holidaysInPeriod++;
+        holidaysList.push(holidayDetail);
+      }
+
+      if (!isWeekend && !holidayDetail) {
+        businessDays++;
       }
 
       current.setDate(current.getDate() + 1);
     }
 
-    return { businessDays, holidaysInPeriod };
+    return { businessDays, holidaysInPeriod, saturdays, sundays, calendarDays, holidays: holidaysList };
   }
 
   addBusinessDays(startDate: Date, days: number, uf?: string, municipality?: string): BusinessDayResult {
-    const current = new Date(this.normalizeDate(startDate));
+    const start = new Date(this.normalizeDate(startDate));
+    const current = new Date(start);
     let remaining = days;
     let holidaysSkipped = 0;
+    let saturdays = 0;
+    let sundays = 0;
+    const holidaysList: HolidayDetail[] = [];
 
-    // We need holidays potentially spanning multiple years
-    // Pre-load the starting year, expand as we go
     let loadedYears = new Set<number>();
-    let holidaySet = new Set<string>();
+    let holidayDetailMap = new Map<string, HolidayDetail>();
 
     const ensureYear = (year: number) => {
       if (!loadedYears.has(year)) {
         loadedYears.add(year);
-        const holidays = this.holidayProvider.getHolidays(year, uf, municipality);
-        for (const h of holidays) {
-          holidaySet.add(this.dateKey(h));
+        const details = this.holidayProvider.getHolidaysDetailed(year, uf, municipality);
+        for (const d of details) {
+          holidayDetailMap.set(this.dateKey(d.date), d);
         }
       }
     };
 
     ensureYear(current.getFullYear());
 
-    // Count start date as day 1 if it's a business day (standard convention)
+    // Count start date as day 1 if it's a business day
     const startDow = current.getDay();
     const startIsWeekend = startDow === 0 || startDow === 6;
-    const startIsHoliday = holidaySet.has(this.dateKey(current));
-    if (!startIsWeekend && !startIsHoliday) {
+    const startHoliday = holidayDetailMap.get(this.dateKey(current));
+    if (!startIsWeekend && !startHoliday) {
       remaining--;
     }
 
@@ -90,33 +100,51 @@ export class BusinessDayService {
       ensureYear(current.getFullYear());
 
       const dayOfWeek = current.getDay();
+      const dateKey = this.dateKey(current);
+      const holidayDetail = holidayDetailMap.get(dateKey);
       const isWeekend = dayOfWeek === 0 || dayOfWeek === 6;
-      const isHoliday = holidaySet.has(this.dateKey(current));
 
-      if (!isWeekend && !isHoliday) {
+      if (!isWeekend && !holidayDetail) {
         remaining--;
       }
-      if (isHoliday && !isWeekend) {
+      if (holidayDetail && !isWeekend) {
         holidaysSkipped++;
+        holidaysList.push(holidayDetail);
       }
     }
+
+    // Count weekends in the traversed range [start, current]
+    const countFrom = new Date(start);
+    while (countFrom <= current) {
+      const dow = countFrom.getDay();
+      if (dow === 6) saturdays++;
+      if (dow === 0) sundays++;
+      countFrom.setDate(countFrom.getDate() + 1);
+    }
+
+    const msPerDay = 1000 * 60 * 60 * 24;
+    const calendarDays = Math.round((current.getTime() - start.getTime()) / msPerDay) + 1;
 
     return {
       businessDays: days,
       holidaysInPeriod: holidaysSkipped,
+      saturdays,
+      sundays,
+      calendarDays,
+      holidays: holidaysList,
       resultDate: new Date(current)
     };
   }
 
-  private buildHolidaySet(from: Date, to: Date, uf?: string, municipality?: string): Set<string> {
-    const set = new Set<string>();
+  private buildHolidayDetailMap(from: Date, to: Date, uf?: string, municipality?: string): Map<string, HolidayDetail> {
+    const map = new Map<string, HolidayDetail>();
     for (let year = from.getFullYear(); year <= to.getFullYear(); year++) {
-      const holidays = this.holidayProvider.getHolidays(year, uf, municipality);
-      for (const h of holidays) {
-        set.add(this.dateKey(h));
+      const details = this.holidayProvider.getHolidaysDetailed(year, uf, municipality);
+      for (const d of details) {
+        map.set(this.dateKey(d.date), d);
       }
     }
-    return set;
+    return map;
   }
 
   private normalizeDate(d: Date): Date {
@@ -127,3 +155,4 @@ export class BusinessDayService {
     return `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}-${String(d.getDate()).padStart(2, '0')}`;
   }
 }
+
