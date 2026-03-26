@@ -1,0 +1,500 @@
+{
+  "national": [
+    { "date": "01-01", "name": "Confraternização Universal", "type": "fixed", "scope": "national" },
+    { "date": "04-21", "name": "Tiradentes", "type": "fixed", "scope": "national" },
+    { "date": "05-01", "name": "Dia do Trabalho", "type": "fixed", "scope": "national" },
+    { "date": "09-07", "name": "Independência do Brasil", "type": "fixed", "scope": "national" },
+    { "date": "10-12", "name": "Nossa Senhora Aparecida", "type": "fixed", "scope": "national" },
+    { "date": "11-02", "name": "Finados", "type": "fixed", "scope": "national" },
+    { "date": "11-15", "name": "Proclamação da República", "type": "fixed", "scope": "national" },
+    { "date": "11-20", "name": "Dia da Consciência Negra", "type": "fixed", "scope": "national" },
+    { "date": "12-25", "name": "Natal", "type": "fixed", "scope": "national" },
+
+    { "date": "2025-03-03", "name": "Carnaval", "type": "yearly", "scope": "national" },
+    { "date": "2025-03-04", "name": "Carnaval", "type": "yearly", "scope": "national" },
+    { "date": "2025-04-18", "name": "Sexta-feira Santa", "type": "yearly", "scope": "national" },
+    { "date": "2025-06-19", "name": "Corpus Christi", "type": "yearly", "scope": "national" },
+
+    { "date": "2026-02-16", "name": "Carnaval", "type": "yearly", "scope": "national" },
+    { "date": "2026-02-17", "name": "Carnaval", "type": "yearly", "scope": "national" },
+    { "date": "2026-04-03", "name": "Sexta-feira Santa", "type": "yearly", "scope": "national" },
+    { "date": "2026-06-04", "name": "Corpus Christi", "type": "yearly", "scope": "national" },
+
+    { "date": "2027-02-08", "name": "Carnaval", "type": "yearly", "scope": "national" },
+    { "date": "2027-02-09", "name": "Carnaval", "type": "yearly", "scope": "national" },
+    { "date": "2027-03-26", "name": "Sexta-feira Santa", "type": "yearly", "scope": "national" },
+    { "date": "2027-05-27", "name": "Corpus Christi", "type": "yearly", "scope": "national" },
+
+    { "date": "2028-02-28", "name": "Carnaval", "type": "yearly", "scope": "national" },
+    { "date": "2028-02-29", "name": "Carnaval", "type": "yearly", "scope": "national" },
+    { "date": "2028-04-14", "name": "Sexta-feira Santa", "type": "yearly", "scope": "national" },
+    { "date": "2028-06-15", "name": "Corpus Christi", "type": "yearly", "scope": "national" },
+
+    { "date": "2029-02-12", "name": "Carnaval", "type": "yearly", "scope": "national" },
+    { "date": "2029-02-13", "name": "Carnaval", "type": "yearly", "scope": "national" },
+    { "date": "2029-03-30", "name": "Sexta-feira Santa", "type": "yearly", "scope": "national" },
+    { "date": "2029-05-31", "name": "Corpus Christi", "type": "yearly", "scope": "national" },
+
+    { "date": "2030-03-04", "name": "Carnaval", "type": "yearly", "scope": "national" },
+    { "date": "2030-03-05", "name": "Carnaval", "type": "yearly", "scope": "national" },
+    { "date": "2030-04-19", "name": "Sexta-feira Santa", "type": "yearly", "scope": "national" },
+    { "date": "2030-06-20", "name": "Corpus Christi", "type": "yearly", "scope": "national" }
+  ],
+  "states": [
+    {
+      "uf": "AC",
+      "state": "Acre",
+      "holidays": [
+        { "date": "01-23", "name": "Dia do Evangélico", "type": "fixed", "scope": "state" },
+        { "date": "03-08", "name": "Dia Internacional da Mulher", "type": "fixed", "scope": "state" },
+        { "date": "06-15", "name": "Aniversário do Acre", "type": "fixed", "scope": "state" },
+        { "date": "09-05", "name": "Dia da Amazônia", "type": "fixed", "scope": "state" },
+        { "date": "11-17", "name": "Tratado de Petrópolis", "type": "fixed", "scope": "state" }
+      ],
+      "municipalities": [
+        {
+          "name": "Rio Branco",
+          "isCapital": true,
+          "holidays": [
+            { "date": "12-28", "name": "Aniversário de Rio Branco", "type": "fixed", "scope": "municipal" }
+          ]
+        }
+      ]
+    },
+    {
+      "uf": "AL",
+      "state": "Alagoas",
+      "holidays": [
+        { "date": "06-24", "name": "São João", "type": "fixed", "scope": "state" },
+        { "date": "06-29", "name": "São Pedro", "type": "fixed", "scope": "state" },
+        { "date": "09-16", "name": "Emancipação Política de Alagoas", "type": "fixed", "scope": "state" },
+        { "date": "11-30", "name": "Dia do Evangélico", "type": "fixed", "scope": "state" }
+      ],
+      "municipalities": [
+        {
+          "name": "Maceió",
+          "isCapital": true,
+          "holidays": [
+            { "date": "12-05", "name": "Aniversário de Maceió", "type": "fixed", "scope": "municipal" }
+          ]
+        }
+      ]
+    },
+    {
+      "uf": "AP",
+      "state": "Amapá",
+      "holidays": [
+        { "date": "03-19", "name": "Dia de São José", "type": "fixed", "scope": "state" },
+        { "date": "07-25", "name": "São Tiago", "type": "fixed", "scope": "state" },
+        { "date": "10-05", "name": "Criação do Estado do Amapá", "type": "fixed", "scope": "state" },
+        { "date": "09-13", "name": "Aniversário do Amapá", "type": "fixed", "scope": "state" }
+      ],
+      "municipalities": [
+        {
+          "name": "Macapá",
+          "isCapital": true,
+          "holidays": [
+            { "date": "02-04", "name": "Aniversário de Macapá", "type": "fixed", "scope": "municipal" }
+          ]
+        }
+      ]
+    },
+    {
+      "uf": "AM",
+      "state": "Amazonas",
+      "holidays": [
+        { "date": "09-05", "name": "Elevação do Amazonas à Categoria de Província", "type": "fixed", "scope": "state" }
+      ],
+      "municipalities": [
+        {
+          "name": "Manaus",
+          "isCapital": true,
+          "holidays": [
+            { "date": "10-24", "name": "Aniversário de Manaus", "type": "fixed", "scope": "municipal" }
+          ]
+        }
+      ]
+    },
+    {
+      "uf": "BA",
+      "state": "Bahia",
+      "holidays": [
+        { "date": "07-02", "name": "Independência da Bahia", "type": "fixed", "scope": "state" }
+      ],
+      "municipalities": [
+        {
+          "name": "Salvador",
+          "isCapital": true,
+          "holidays": [
+            { "date": "03-29", "name": "Aniversário de Salvador", "type": "fixed", "scope": "municipal" },
+            { "date": "06-24", "name": "São João", "type": "fixed", "scope": "municipal" },
+            { "date": "12-08", "name": "Nossa Senhora da Conceição", "type": "fixed", "scope": "municipal" }
+          ]
+        }
+      ]
+    },
+    {
+      "uf": "CE",
+      "state": "Ceará",
+      "holidays": [
+        { "date": "03-25", "name": "Data Magna do Ceará", "type": "fixed", "scope": "state" },
+        { "date": "08-15", "name": "Nossa Senhora da Assunção", "type": "fixed", "scope": "state" }
+      ],
+      "municipalities": [
+        {
+          "name": "Fortaleza",
+          "isCapital": true,
+          "holidays": [
+            { "date": "04-13", "name": "Aniversário de Fortaleza", "type": "fixed", "scope": "municipal" }
+          ]
+        }
+      ]
+    },
+    {
+      "uf": "DF",
+      "state": "Distrito Federal",
+      "holidays": [
+        { "date": "04-21", "name": "Fundação de Brasília", "type": "fixed", "scope": "state" },
+        { "date": "11-30", "name": "Dia do Evangélico", "type": "fixed", "scope": "state" }
+      ],
+      "municipalities": [
+        {
+          "name": "Brasília",
+          "isCapital": true,
+          "holidays": []
+        }
+      ]
+    },
+    {
+      "uf": "ES",
+      "state": "Espírito Santo",
+      "holidays": [
+        { "date": "10-28", "name": "Dia do Servidor Público Estadual", "type": "fixed", "scope": "state" }
+      ],
+      "municipalities": [
+        {
+          "name": "Vitória",
+          "isCapital": true,
+          "holidays": [
+            { "date": "09-08", "name": "Nossa Senhora da Vitória", "type": "fixed", "scope": "municipal" },
+            { "date": "04-24", "name": "Colonização do Solo Espírito-Santense", "type": "fixed", "scope": "municipal" }
+          ]
+        }
+      ]
+    },
+    {
+      "uf": "GO",
+      "state": "Goiás",
+      "holidays": [
+        { "date": "10-24", "name": "Pedra Fundamental de Goiânia", "type": "fixed", "scope": "state" }
+      ],
+      "municipalities": [
+        {
+          "name": "Goiânia",
+          "isCapital": true,
+          "holidays": [
+            { "date": "10-24", "name": "Aniversário de Goiânia", "type": "fixed", "scope": "municipal" },
+            { "date": "05-24", "name": "Nossa Senhora Auxiliadora", "type": "fixed", "scope": "municipal" }
+          ]
+        }
+      ]
+    },
+    {
+      "uf": "MA",
+      "state": "Maranhão",
+      "holidays": [
+        { "date": "07-28", "name": "Adesão do Maranhão à Independência do Brasil", "type": "fixed", "scope": "state" }
+      ],
+      "municipalities": [
+        {
+          "name": "São Luís",
+          "isCapital": true,
+          "holidays": [
+            { "date": "09-08", "name": "Aniversário de São Luís", "type": "fixed", "scope": "municipal" }
+          ]
+        }
+      ]
+    },
+    {
+      "uf": "MT",
+      "state": "Mato Grosso",
+      "holidays": [],
+      "municipalities": [
+        {
+          "name": "Cuiabá",
+          "isCapital": true,
+          "holidays": [
+            { "date": "04-08", "name": "Aniversário de Cuiabá", "type": "fixed", "scope": "municipal" }
+          ]
+        }
+      ]
+    },
+    {
+      "uf": "MS",
+      "state": "Mato Grosso do Sul",
+      "holidays": [
+        { "date": "10-11", "name": "Criação do Estado de Mato Grosso do Sul", "type": "fixed", "scope": "state" }
+      ],
+      "municipalities": [
+        {
+          "name": "Campo Grande",
+          "isCapital": true,
+          "holidays": [
+            { "date": "08-26", "name": "Aniversário de Campo Grande", "type": "fixed", "scope": "municipal" }
+          ]
+        }
+      ]
+    },
+    {
+      "uf": "MG",
+      "state": "Minas Gerais",
+      "holidays": [
+        { "date": "04-21", "name": "Data Magna de Minas Gerais", "type": "fixed", "scope": "state" }
+      ],
+      "municipalities": [
+        {
+          "name": "Belo Horizonte",
+          "isCapital": true,
+          "holidays": [
+            { "date": "12-08", "name": "Imaculada Conceição", "type": "fixed", "scope": "municipal" },
+            { "date": "08-15", "name": "Assunção de Nossa Senhora", "type": "fixed", "scope": "municipal" },
+            { "date": "12-12", "name": "Aniversário de Belo Horizonte", "type": "fixed", "scope": "municipal" }
+          ]
+        }
+      ]
+    },
+    {
+      "uf": "PA",
+      "state": "Pará",
+      "holidays": [
+        { "date": "08-15", "name": "Adesão do Grão-Pará à Independência do Brasil", "type": "fixed", "scope": "state" }
+      ],
+      "municipalities": [
+        {
+          "name": "Belém",
+          "isCapital": true,
+          "holidays": [
+            { "date": "01-12", "name": "Aniversário de Belém", "type": "fixed", "scope": "municipal" }
+          ]
+        }
+      ]
+    },
+    {
+      "uf": "PB",
+      "state": "Paraíba",
+      "holidays": [
+        { "date": "08-05", "name": "Fundação do Estado da Paraíba", "type": "fixed", "scope": "state" }
+      ],
+      "municipalities": [
+        {
+          "name": "João Pessoa",
+          "isCapital": true,
+          "holidays": [
+            { "date": "08-05", "name": "Aniversário de João Pessoa", "type": "fixed", "scope": "municipal" },
+            { "date": "06-24", "name": "São João", "type": "fixed", "scope": "municipal" }
+          ]
+        }
+      ]
+    },
+    {
+      "uf": "PR",
+      "state": "Paraná",
+      "holidays": [
+        { "date": "12-19", "name": "Emancipação Política do Paraná", "type": "fixed", "scope": "state" }
+      ],
+      "municipalities": [
+        {
+          "name": "Curitiba",
+          "isCapital": true,
+          "holidays": [
+            { "date": "03-29", "name": "Aniversário de Curitiba", "type": "fixed", "scope": "municipal" },
+            { "date": "09-08", "name": "Nossa Senhora da Luz", "type": "fixed", "scope": "municipal" }
+          ]
+        }
+      ]
+    },
+    {
+      "uf": "PE",
+      "state": "Pernambuco",
+      "holidays": [
+        { "date": "03-06", "name": "Revolução Pernambucana de 1817", "type": "fixed", "scope": "state" },
+        { "date": "06-24", "name": "São João", "type": "fixed", "scope": "state" }
+      ],
+      "municipalities": [
+        {
+          "name": "Recife",
+          "isCapital": true,
+          "holidays": [
+            { "date": "07-16", "name": "Nossa Senhora do Carmo", "type": "fixed", "scope": "municipal" }
+          ]
+        }
+      ]
+    },
+    {
+      "uf": "PI",
+      "state": "Piauí",
+      "holidays": [
+        { "date": "10-19", "name": "Dia do Piauí", "type": "fixed", "scope": "state" }
+      ],
+      "municipalities": [
+        {
+          "name": "Teresina",
+          "isCapital": true,
+          "holidays": [
+            { "date": "08-16", "name": "Aniversário de Teresina", "type": "fixed", "scope": "municipal" }
+          ]
+        }
+      ]
+    },
+    {
+      "uf": "RJ",
+      "state": "Rio de Janeiro",
+      "holidays": [
+        { "date": "04-23", "name": "Dia de São Jorge", "type": "fixed", "scope": "state" }
+      ],
+      "municipalities": [
+        {
+          "name": "Rio de Janeiro",
+          "isCapital": true,
+          "holidays": [
+            { "date": "01-20", "name": "Dia de São Sebastião", "type": "fixed", "scope": "municipal" },
+            { "date": "03-01", "name": "Aniversário do Rio de Janeiro", "type": "fixed", "scope": "municipal" }
+          ]
+        }
+      ]
+    },
+    {
+      "uf": "RN",
+      "state": "Rio Grande do Norte",
+      "holidays": [
+        { "date": "10-03", "name": "Mártires de Cunhaú e Uruaçu", "type": "fixed", "scope": "state" }
+      ],
+      "municipalities": [
+        {
+          "name": "Natal",
+          "isCapital": true,
+          "holidays": [
+            { "date": "12-25", "name": "Aniversário de Natal", "type": "fixed", "scope": "municipal" }
+          ]
+        }
+      ]
+    },
+    {
+      "uf": "RS",
+      "state": "Rio Grande do Sul",
+      "holidays": [
+        { "date": "09-20", "name": "Revolução Farroupilha", "type": "fixed", "scope": "state" }
+      ],
+      "municipalities": [
+        {
+          "name": "Porto Alegre",
+          "isCapital": true,
+          "holidays": [
+            { "date": "02-02", "name": "Nossa Senhora dos Navegantes", "type": "fixed", "scope": "municipal" },
+            { "date": "03-26", "name": "Aniversário de Porto Alegre", "type": "fixed", "scope": "municipal" }
+          ]
+        }
+      ]
+    },
+    {
+      "uf": "RO",
+      "state": "Rondônia",
+      "holidays": [
+        { "date": "01-04", "name": "Criação do Estado de Rondônia", "type": "fixed", "scope": "state" },
+        { "date": "06-18", "name": "Dia do Evangélico", "type": "fixed", "scope": "state" }
+      ],
+      "municipalities": [
+        {
+          "name": "Porto Velho",
+          "isCapital": true,
+          "holidays": [
+            { "date": "10-02", "name": "Aniversário de Porto Velho", "type": "fixed", "scope": "municipal" }
+          ]
+        }
+      ]
+    },
+    {
+      "uf": "RR",
+      "state": "Roraima",
+      "holidays": [
+        { "date": "10-05", "name": "Criação do Estado de Roraima", "type": "fixed", "scope": "state" }
+      ],
+      "municipalities": [
+        {
+          "name": "Boa Vista",
+          "isCapital": true,
+          "holidays": [
+            { "date": "06-09", "name": "Aniversário de Boa Vista", "type": "fixed", "scope": "municipal" }
+          ]
+        }
+      ]
+    },
+    {
+      "uf": "SC",
+      "state": "Santa Catarina",
+      "holidays": [
+        { "date": "08-11", "name": "Criação da Capitania de Santa Catarina", "type": "fixed", "scope": "state" }
+      ],
+      "municipalities": [
+        {
+          "name": "Florianópolis",
+          "isCapital": true,
+          "holidays": [
+            { "date": "03-23", "name": "Aniversário de Florianópolis", "type": "fixed", "scope": "municipal" }
+          ]
+        }
+      ]
+    },
+    {
+      "uf": "SP",
+      "state": "São Paulo",
+      "holidays": [
+        { "date": "07-09", "name": "Revolução Constitucionalista de 1932", "type": "fixed", "scope": "state" }
+      ],
+      "municipalities": [
+        {
+          "name": "São Paulo",
+          "isCapital": true,
+          "holidays": [
+            { "date": "01-25", "name": "Aniversário de São Paulo", "type": "fixed", "scope": "municipal" }
+          ]
+        }
+      ]
+    },
+    {
+      "uf": "SE",
+      "state": "Sergipe",
+      "holidays": [
+        { "date": "07-08", "name": "Emancipação Política de Sergipe", "type": "fixed", "scope": "state" }
+      ],
+      "municipalities": [
+        {
+          "name": "Aracaju",
+          "isCapital": true,
+          "holidays": [
+            { "date": "03-17", "name": "Aniversário de Aracaju", "type": "fixed", "scope": "municipal" }
+          ]
+        }
+      ]
+    },
+    {
+      "uf": "TO",
+      "state": "Tocantins",
+      "holidays": [
+        { "date": "01-01", "name": "Instalação do Estado do Tocantins", "type": "fixed", "scope": "state" },
+        { "date": "10-05", "name": "Criação do Estado do Tocantins", "type": "fixed", "scope": "state" },
+        { "date": "03-18", "name": "Autonomia do Estado do Tocantins", "type": "fixed", "scope": "state" },
+        { "date": "09-08", "name": "Nossa Senhora da Natividade", "type": "fixed", "scope": "state" }
+      ],
+      "municipalities": [
+        {
+          "name": "Palmas",
+          "isCapital": true,
+          "holidays": [
+            { "date": "05-20", "name": "Aniversário de Palmas", "type": "fixed", "scope": "municipal" }
+          ]
+        }
+      ]
+    }
+  ]
+}
